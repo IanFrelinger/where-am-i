@@ -48,7 +48,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch || is_branch == 'master'}}
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build production Docker image
         uses: docker/build-push-action@v5
@@ -199,9 +199,10 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
+            type=ref,event=pr
             type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch || is_branch == 'master'}}
-            type=raw,value=stable,enable={{is_default_branch || is_branch == 'master'}}
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=stable,enable={{is_default_branch}}
 
       - name: Build and push production image
         uses: docker/build-push-action@v5
