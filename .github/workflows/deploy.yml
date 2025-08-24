@@ -2,9 +2,9 @@ name: Deploy Where Am I
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ master, main ]
 
 env:
   NODE_VERSION: '20'
@@ -40,7 +40,7 @@ jobs:
   docker-build:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       
@@ -62,8 +62,8 @@ jobs:
           tags: |
             type=ref,event=branch
             type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=stable,enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch || is_branch == 'master'}}
+            type=raw,value=stable,enable={{is_default_branch || is_branch == 'master'}}
       
       - name: Build and push production Docker image
         uses: docker/build-push-action@v5
@@ -109,7 +109,7 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       
@@ -148,7 +148,7 @@ jobs:
   deploy:
     needs: [docker-build, build]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       
@@ -209,7 +209,7 @@ jobs:
   deploy-containers:
     needs: [docker-build, build]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       

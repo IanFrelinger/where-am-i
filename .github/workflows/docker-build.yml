@@ -2,14 +2,14 @@ name: Docker Build and Test
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ master, main, develop ]
     paths:
       - 'packages/**'
       - 'Dockerfile*'
       - 'docker-compose.yml'
       - '.github/workflows/docker-build.yml'
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master, main, develop ]
     paths:
       - 'packages/**'
       - 'Dockerfile*'
@@ -48,7 +48,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch || is_branch == 'master'}}
 
       - name: Build production Docker image
         uses: docker/build-push-action@v5
@@ -176,7 +176,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: [build-and-test, test-local-build, docker-compose-test]
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
     
     steps:
       - name: Checkout repository
@@ -200,8 +200,8 @@ jobs:
           tags: |
             type=ref,event=branch
             type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=stable,enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch || is_branch == 'master'}}
+            type=raw,value=stable,enable={{is_default_branch || is_branch == 'master'}}
 
       - name: Build and push production image
         uses: docker/build-push-action@v5
