@@ -9,7 +9,7 @@ on:
 env:
   NODE_VERSION: '20'
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ianfrelinger/where-am-i
 
 jobs:
   test:
