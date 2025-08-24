@@ -1,0 +1,28 @@
+{
+  "name": "where-am-i",
+  "version": "1.0.0",
+  "description": "A geolocation web app with Node.js + TypeScript backend on AWS",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm -w run dev:all",
+    "dev:all": "concurrently -c auto -n WEB,API \"pnpm -C packages/web dev\" \"pnpm -C packages/api dev\"",
+    "build": "pnpm -w run build:all",
+    "build:all": "pnpm -C packages/web build && pnpm -C packages/api build",
+    "start": "concurrently -c auto -n WEB,API \"pnpm -C packages/web preview\" \"pnpm -C packages/api start\"",
+    "test": "pnpm --filter web test && pnpm --filter api test",
+    "lint": "pnpm --filter web lint && pnpm --filter api test",
+    "deploy": "pnpm --filter infra deploy",
+    "destroy": "pnpm --filter infra destroy"
+  },
+  "devDependencies": {
+            "concurrently": "^9.0.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
