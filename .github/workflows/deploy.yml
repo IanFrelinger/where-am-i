@@ -8,6 +8,8 @@ on:
 
 env:
   NODE_VERSION: '20'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   test:
@@ -34,6 +36,75 @@ jobs:
       
       - name: Run linting
         run: pnpm lint
+
+  docker-build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=stable,enable={{is_default_branch}}
+      
+      - name: Build and push production Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Build and push development Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.dev
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Test Docker container
+        run: |
+          echo "Testing production container..."
+          docker run --name test-prod -d -p 5173:5173 -p 8787:8787 ${{ steps.meta.outputs.tags }}
+          
+          echo "Waiting for container to start..."
+          sleep 30
+          
+          echo "Testing frontend..."
+          curl -f http://localhost:5173/ || exit 1
+          
+          echo "Testing API health..."
+          curl -f http://localhost:8787/api/health || exit 1
+          
+          echo "All Docker tests passed!"
+          
+          echo "Cleaning up test container..."
+          docker stop test-prod
+          docker rm test-prod
 
   build:
     needs: test
@@ -75,7 +146,7 @@ jobs:
           path: packages/api/dist
 
   deploy:
-    needs: build
+    needs: [docker-build, build]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -88,7 +159,7 @@ jobs:
           cache: 'npm'
       
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 8
       
@@ -134,3 +205,76 @@ jobs:
         run: |
           DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name WhereAmIStack --query 'Stacks[0].Outputs[?OutputKey==`CloudFrontURL`].OutputValue' --output text | sed 's/https:\/\///' | sed 's/\.cloudfront\.net//')
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+
+  deploy-containers:
+    needs: [docker-build, build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      
+      - name: Push to Amazon ECR (optional)
+        if: ${{ secrets.ECR_REPOSITORY_URI != '' }}
+        run: |
+          # Tag and push to ECR if ECR_REPOSITORY_URI is configured
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
+          docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+      
+      - name: Deploy to ECS (optional)
+        if: ${{ secrets.ECS_CLUSTER != '' && secrets.ECS_SERVICE != '' }}
+        run: |
+          # Update ECS service if ECS_CLUSTER and ECS_SERVICE are configured
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER }} \
+            --service ${{ secrets.ECS_SERVICE }} \
+            --force-new-deployment
+      
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            ## 🚀 New Release
+            
+            ### Docker Images
+            - Production: `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest`
+            - Development: `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev`
+            
+            ### Infrastructure
+            - AWS CDK deployment completed
+            - Frontend deployed to S3 + CloudFront
+            - API deployed to Lambda + API Gateway
+            
+            ### Build Details
+            - Commit: ${{ github.sha }}
+            - Run: ${{ github.run_number }}
+            - Branch: ${{ github.ref_name }}
+            
+            ### Usage
+            ```bash
+            # Pull and run production image
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            docker run -p 5173:5173 -p 8787:8787 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ```
+          draft: false
+          prerelease: false

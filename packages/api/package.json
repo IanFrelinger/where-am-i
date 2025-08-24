@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec \"esbuild src/local-server.ts --bundle --platform=node --target=node20 --outfile=dist/local-server.js\"",
-    "build": "esbuild src/*.ts --bundle --platform=node --target=node20 --outdir=dist",
+    "build": "tsc",
     "start": "node dist/local-server.js",
     "test": "vitest",
     "lint": "eslint . --ext .ts --report-unused-disable-directives --max-warnings 0",

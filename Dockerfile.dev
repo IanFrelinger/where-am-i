@@ -1,0 +1,37 @@
+# Development Dockerfile for the where-am-i application
+FROM node:20-alpine
+
+# Install pnpm and development tools
+RUN npm install -g pnpm nodemon
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/web/package.json ./packages/web/
+COPY packages/api/package.json ./packages/api/
+COPY infra/package.json ./infra/
+
+# Install all dependencies (including dev dependencies)
+RUN pnpm install
+
+# Copy source code
+COPY packages/ ./packages/
+
+# Expose ports
+EXPOSE 5173 8787
+
+# Create a development start script
+RUN echo '#!/bin/sh\n\
+echo "Starting development environment..."\n\
+echo "Frontend will be available at http://localhost:5173"\n\
+echo "API will be available at http://localhost:8787"\n\
+echo "Starting API server..."\n\
+cd /app/packages/api && pnpm dev &\n\
+echo "Starting frontend..."\n\
+cd /app/packages/web && pnpm dev &\n\
+wait' > /app/dev-start.sh && chmod +x /app/dev-start.sh
+
+# Start development servers
+CMD ["/app/dev-start.sh"]
