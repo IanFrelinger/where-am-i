@@ -88,7 +88,7 @@ jobs:
       - name: Test Docker container
         run: |
           echo "Testing production container..."
-          docker run --name test-prod -d -p 5173:5173 -p 8787:8787 ${{ steps.meta.outputs.tags }}
+          docker run --name test-prod -d -p 5173:5173 -p 8787:8787 ghcr.io/ianfrelinger/where-am-i:latest
           
           echo "Waiting for container to start..."
           sleep 30
