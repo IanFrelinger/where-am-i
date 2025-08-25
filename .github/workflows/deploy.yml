@@ -10,6 +10,7 @@ env:
   NODE_VERSION: '20'
   REGISTRY: ghcr.io
   IMAGE_NAME: ianfrelinger/where-am-i
+  AWS_REGION: 'us-east-2'
 
 jobs:
   test:

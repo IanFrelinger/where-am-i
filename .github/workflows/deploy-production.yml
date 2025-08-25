@@ -18,6 +18,7 @@ env:
   NODE_VERSION: '20'
   DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
   API_SUBDOMAIN: ${{ secrets.API_SUBDOMAIN }}
+  AWS_REGION: 'us-east-2'
 
 jobs:
   test:
