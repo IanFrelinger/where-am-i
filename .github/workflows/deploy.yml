@@ -226,7 +226,7 @@ jobs:
       - name: Deploy infrastructure
         run: |
           cd infra
-          cdk deploy --require-approval never
+          cdk deploy --require-approval never --app "npx ts-node --prefer-ts-exts bin/app.ts"
       
       - name: Upload frontend to S3
         run: |
