@@ -1,0 +1,53 @@
+🧪 Starting Where Am I Application Test Suite...
+================================================
+
+[1;33m📋 Prerequisites Check[0m
+========================
+
+[0;34m🔍 Testing: AWS CLI Configuration[0m
+Command: aws sts get-caller-identity > /dev/null 2>&1
+[0;32m✅ PASS: AWS CLI Configuration[0m
+
+[0;34m🔍 Testing: CDK Installation[0m
+Command: command -v cdk > /dev/null
+[0;32m✅ PASS: CDK Installation[0m
+
+[0;34m🔍 Testing: pnpm Installation[0m
+Command: command -v pnpm > /dev/null
+[0;32m✅ PASS: pnpm Installation[0m
+
+[0;34m🔍 Testing: Node.js Installation[0m
+Command: command -v node > /dev/null
+[0;32m✅ PASS: Node.js Installation[0m
+
+[1;33m🌐 Infrastructure Status Check[0m
+==================================
+📊 Getting CloudFormation stack outputs...
+[0;32m✅ Stack outputs retrieved successfully[0m
+CloudFront URL: https://d1pxtwdttqrk2p.cloudfront.net
+API Gateway URL: https://mc50xq6ble.execute-api.us-east-2.amazonaws.com/
+S3 Bucket: whereamistack-sitebucket397a1860-wmt3sfsgtpmv
+Distribution ID: EFGRPRY8FI3RZ
+
+[1;33m🌍 Frontend Accessibility Tests[0m
+==================================
+
+[0;34m🔍 Testing: CloudFront Frontend[0m
+URL: https://d1pxtwdttqrk2p.cloudfront.net
+[0;32m✅ PASS: CloudFront Frontend (HTTP 200)[0m
+
+[0;34m🔍 Testing: S3 Bucket Direct Access[0m
+URL: https://whereamistack-sitebucket397a1860-wmt3sfsgtpmv.s3.us-east-2.amazonaws.com/index.html
+[0;32m✅ PASS: S3 Bucket Direct Access (HTTP 200)[0m
+
+[1;33m🔌 API Gateway Tests[0m
+==========================
+
+[0;34m🔍 Testing: API Gateway Health Check[0m
+URL: https://mc50xq6ble.execute-api.us-east-2.amazonaws.com//health
+[0;32m✅ PASS: API Gateway Health Check (HTTP 200)[0m
+
+[0;34m🔍 Testing: API Gateway Reverse Lookup[0m
+URL: https://mc50xq6ble.execute-api.us-east-2.amazonaws.com//reverse?ip=8.8.8.8
+[0;31m❌ FAIL: API Gateway Reverse Lookup[0m
+Response: {"error":"lat and lon parameters are required and must be valid numbers"}

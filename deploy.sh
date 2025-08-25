@@ -32,12 +32,12 @@ cdk deploy --require-approval never
 
 # Get the S3 bucket name from CDK output
 echo "📤 Uploading frontend to S3..."
-BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name WhereAmIStack --query 'Stacks[0].Outputs[?OutputKey==`S3BucketName`].OutputValue' --output text)
+BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name WhereAmIStack --query 'Stacks[0].Outputs[?OutputKey==`SiteBucketName`].OutputValue' --output text)
 aws s3 sync ../packages/web/dist s3://$BUCKET_NAME --delete
 
 # Invalidate CloudFront cache
 echo "🔄 Invalidating CloudFront cache..."
-DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name WhereAmIStack --query 'Stacks[0].Outputs[?OutputKey==`CloudFrontURL`].OutputValue' --output text | sed 's/https:\/\///' | sed 's/\.cloudfront\.net//')
+DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name WhereAmIStack --query 'Stacks[0].Outputs[?OutputKey==`DistributionId`].OutputValue' --output text)
 aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
 
 echo "✅ Deployment complete!"

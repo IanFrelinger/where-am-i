@@ -1,0 +1,580 @@
+<testsuites id="" name="" tests="32" failures="0" skipped="0" errors="0" time="29.085009000000003">
+<testsuite name="debug-app-state.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="1" failures="0" skipped="0" time="5.484" errors="0">
+<testcase name="Debug Application State › should investigate why the map ready signal is not being emitted" classname="debug-app-state.spec.ts" time="5.484">
+<system-out>
+<![CDATA[=== APPLICATION STATE INVESTIGATION ===
+Page state: {
+  errorVisible: [33mfalse[39m,
+  errorText: [32m''[39m,
+  loadingVisible: [33mfalse[39m,
+  loadingText: [32m''[39m,
+  hasMapElements: [33mtrue[39m,
+  hasCanvas: [33mtrue[39m,
+  hasMapboxglMap: [33mfalse[39m,
+  bodyText: [32m'\n'[39m +
+    [32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy❌ Map ErrorMap error event: A valid Mapbox access token is required to use Mapbox GL JS. To create an account or a new access token, visit https://account.mapbox.com/Retry\n'[39m +
+    [32m'    \n'[39m +
+    [32m'  \n'[39m +
+    [32m'\n'[39m,
+  hasTestStyle: [33mtrue[39m,
+  testStyleType: [32m'object'[39m,
+  hasMapReady: [33mtrue[39m,
+  mapReadyValue: [33mtrue[39m,
+  consoleErrors: [],
+  geolocationCalled: [33mfalse[39m
+}
+Geolocation status: { logs: [], hasGeolocation: [33mtrue[39m, geolocationType: [32m'object'[39m }
+Location attempts: {
+  hasLocationText: [33mtrue[39m,
+  hasErrorText: [33mtrue[39m,
+  hasLoadingText: [33mfalse[39m,
+  hasWelcomeText: [33mfalse[39m,
+  hasMapText: [33mtrue[39m,
+  hasWhereAmIText: [33mfalse[39m,
+  hasCoordinates: [33mfalse[39m
+}
+JavaScript errors: [ [32m'Mapbox GL JS not loaded'[39m ]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="debug-location.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="4" failures="0" skipped="0" time="37.008" errors="0">
+<testcase name="Debug Location Service Failure › should investigate location service failure in detail" classname="debug-location.spec.ts" time="5.779">
+<system-out>
+<![CDATA[=== LOCATION SERVICE DEBUG ===
+Console messages: [
+  [32m'debug: [vite] connecting...'[39m,
+  [32m'info: %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold'[39m,
+  [32m'debug: [vite] connected.'[39m
+]
+Console errors: []
+Network errors: []
+Page state: {
+  geolocationAvailable: [33mtrue[39m,
+  isSecureContext: [33mtrue[39m,
+  protocol: [32m'http:'[39m,
+  globalError: [90mundefined[39m,
+  hasLocationVars: { hasMap: [33mfalse[39m, hasMapboxgl: [33mfalse[39m, hasGeolocation: [33mfalse[39m },
+  readyState: [32m'complete'[39m,
+  errorElements: {
+    error: [33mfalse[39m,
+    errorText: [32m''[39m,
+    loading: [33mtrue[39m,
+    loadingText: [32m'Getting your location...'[39m
+  }
+}
+Script status: {
+  totalScripts: [33m3[39m,
+  externalScripts: [
+    {
+      src: [32m'http://localhost:5173/@vite/client'[39m,
+      loaded: [90mundefined[39m,
+      error: [32m'No error handler'[39m
+    },
+    {
+      src: [32m'http://localhost:5173/src/main.tsx'[39m,
+      loaded: [90mundefined[39m,
+      error: [32m'No error handler'[39m
+    }
+  ],
+  inlineScripts: [33m1[39m
+}
+Mapbox status: { loaded: [33mfalse[39m, error: [32m'Mapbox GL JS not found in global scope'[39m }
+Geolocation status: { available: [33mtrue[39m, secureContext: [33mtrue[39m, protocol: [32m'http:'[39m }
+Application errors: {
+  errorVisible: [33mfalse[39m,
+  errorText: [32m''[39m,
+  loadingVisible: [33mtrue[39m,
+  loadingText: [32m'Getting your location...'[39m,
+  bodyText: [32m'\n    Getting your location...\n    \n  \n\n'[39m
+}
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Location Service Failure › should try to manually trigger geolocation and see what happens" classname="debug-location.spec.ts" time="17.724">
+<system-out>
+<![CDATA[=== MANUAL GEOLOCATION TEST ===
+Manual geolocation result: {
+  success: [33mfalse[39m,
+  error: [32m'Geolocation error: Timeout expired (code: 3)'[39m
+}
+Updated state after manual geolocation: {
+  errorVisible: [33mtrue[39m,
+  errorText: [32m'❌ Failed to get locationTry Again'[39m,
+  hasMapElements: [33mfalse[39m,
+  hasCanvas: [33mfalse[39m,
+  hasMapboxglMap: [33mfalse[39m
+}
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Location Service Failure › should check if there are any environment or configuration issues" classname="debug-location.spec.ts" time="2.74">
+<system-out>
+<![CDATA[=== ENVIRONMENT CHECK ===
+Environment info: {
+  userAgent: [32m'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36'[39m,
+  platform: [32m'MacIntel'[39m,
+  language: [32m'en-US'[39m,
+  isSecureContext: [33mtrue[39m,
+  protocol: [32m'http:'[39m,
+  hostname: [32m'localhost'[39m,
+  features: {
+    geolocation: [33mtrue[39m,
+    serviceWorker: [33mtrue[39m,
+    localStorage: [33mtrue[39m,
+    sessionStorage: [33mtrue[39m,
+    indexedDB: [33mtrue[39m
+  },
+  globalConfig: {
+    hasEnv: [33mfalse[39m,
+    hasConfig: [33mfalse[39m,
+    hasProcess: [33mfalse[39m,
+    hasNodeEnv: [33mfalse[39m
+  }
+}
+Missing configuration: [ [32m'Mapbox GL JS not loaded'[39m ]
+Network status: {
+  images: [],
+  scripts: [
+    { src: [32m''[39m, complete: [90mundefined[39m, type: [32m'module'[39m },
+    {
+      src: [32m'http://localhost:5173/@vite/client'[39m,
+      complete: [90mundefined[39m,
+      type: [32m'module'[39m
+    },
+    {
+      src: [32m'http://localhost:5173/src/main.tsx'[39m,
+      complete: [90mundefined[39m,
+      type: [32m'module'[39m
+    }
+  ]
+}
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Location Service Failure › should try different geolocation strategies and mock location" classname="debug-location.spec.ts" time="10.765">
+<system-out>
+<![CDATA[=== MOCK LOCATION TEST ===
+Mock location result: {
+  success: [33mtrue[39m,
+  coords: {
+    latitude: [33m38.836702359004654[39m,
+    longitude: [33m-77.10348659698158[39m,
+    accuracy: [33m100[39m
+  },
+  isMock: [33mtrue[39m
+}
+Updated state after mock location: {
+  errorVisible: [33mfalse[39m,
+  errorText: [32m''[39m,
+  loadingVisible: [33mfalse[39m,
+  loadingText: [32m''[39m,
+  hasMapElements: [33mtrue[39m,
+  hasCanvas: [33mtrue[39m,
+  hasMapboxglMap: [33mtrue[39m,
+  bodyText: [32m'\n'[39m +
+    [32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy© Mapbox © OpenStreetMap Improve this map3D Buildings3D Terrain\n'[39m +
+    [32m'    \n'[39m +
+    [32m'  \n'[39m +
+    [32m'\n'[39m
+}
+Mapbox status after mock location: {
+  loaded: [33mfalse[39m,
+  error: [32m'Mapbox GL JS still not found in global scope'[39m
+}
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="debug-map.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="3" failures="0" skipped="0" time="16.646" errors="0">
+<testcase name="Debug Map Structure › should inspect page structure to find map elements" classname="debug-map.spec.ts" time="7.792">
+<system-out>
+<![CDATA[Page title: Where Am I? 🌍
+Location error visible: [33mtrue[39m
+Error text: ❌ Failed to get locationTry Again
+Loading container visible: [33mtrue[39m
+Elements with "map" in class name: []
+All div elements: [
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m''[39m,
+    id: [32m'root'[39m,
+    textContent: [32m'❌ Failed to get locationTry Again'[39m,
+    visible: [33mtrue[39m,
+    children: [33m1[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'app'[39m,
+    id: [32m''[39m,
+    textContent: [32m'❌ Failed to get locationTry Again'[39m,
+    visible: [33mtrue[39m,
+    children: [33m1[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'loading-container'[39m,
+    id: [32m''[39m,
+    textContent: [32m'❌ Failed to get locationTry Again'[39m,
+    visible: [33mtrue[39m,
+    children: [33m1[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'error'[39m,
+    id: [32m''[39m,
+    textContent: [32m'❌ Failed to get locationTry Again'[39m,
+    visible: [33mtrue[39m,
+    children: [33m2[39m
+  }
+]
+Canvas elements: []
+Mapbox elements: {
+  hasMapboxglMap: [33mfalse[39m,
+  hasMapboxglCanvas: [33mfalse[39m,
+  hasMapboxglContainer: [33mfalse[39m,
+  mapboxglMapClass: [32m''[39m,
+  mapboxglCanvasClass: [32m''[39m,
+  mapboxglContainerClass: [32m''[39m
+}
+Potential map containers: {
+  [32m'.map-container'[39m: { found: [33mfalse[39m, className: [32m''[39m, id: [32m''[39m, visible: [33mfalse[39m },
+  [32m'.map'[39m: { found: [33mfalse[39m, className: [32m''[39m, id: [32m''[39m, visible: [33mfalse[39m },
+  [32m'#map'[39m: { found: [33mfalse[39m, className: [32m''[39m, id: [32m''[39m, visible: [33mfalse[39m },
+  [32m'[data-testid*="map"]'[39m: { found: [33mfalse[39m, className: [32m''[39m, id: [32m''[39m, visible: [33mfalse[39m },
+  [32m'[class*="mapbox"]'[39m: { found: [33mfalse[39m, className: [32m''[39m, id: [32m''[39m, visible: [33mfalse[39m },
+  [32m'[class*="leaflet"]'[39m: { found: [33mfalse[39m, className: [32m''[39m, id: [32m''[39m, visible: [33mfalse[39m }
+}
+Buttons found: [
+  {
+    text: [32m'Try Again'[39m,
+    className: [32m'btn btn-primary'[39m,
+    id: [32m''[39m,
+    visible: [33mtrue[39m
+  }
+]
+Body content preview: 
+    ❌ Failed to get locationTry Again
+    
+  
+
+
+Console messages: []
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Map Structure › should try to grant location permission and see if map appears" classname="debug-map.spec.ts" time="5.707">
+<system-out>
+<![CDATA[After granting location permission...
+Location error still visible: [33mfalse[39m
+Map elements after location permission: []
+All divs after location permission: [
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m''[39m,
+    id: [32m'root'[39m,
+    textContent: [32m'Getting your location...'[39m,
+    visible: [33mtrue[39m,
+    children: [33m1[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'app'[39m,
+    id: [32m''[39m,
+    textContent: [32m'Getting your location...'[39m,
+    visible: [33mtrue[39m,
+    children: [33m1[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'loading-container'[39m,
+    id: [32m''[39m,
+    textContent: [32m'Getting your location...'[39m,
+    visible: [33mtrue[39m,
+    children: [33m1[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'loading'[39m,
+    id: [32m''[39m,
+    textContent: [32m'Getting your location...'[39m,
+    visible: [33mtrue[39m,
+    children: [33m2[39m
+  },
+  {
+    tagName: [32m'DIV'[39m,
+    className: [32m'spinner'[39m,
+    id: [32m''[39m,
+    textContent: [32m''[39m,
+    visible: [33mtrue[39m,
+    children: [33m0[39m
+  }
+]
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Map Structure › should try clicking the Try Again button to see if map appears" classname="debug-map.spec.ts" time="3.147">
+<system-out>
+<![CDATA[Try Again button visible: [33mfalse[39m
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="debug-mock-location.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="3" failures="0" skipped="0" time="32.937" errors="0">
+<testcase name="Debug Mock Location Implementation › should verify mock location is working and investigate why map still fails" classname="debug-mock-location.spec.ts" time="21.815">
+<system-out>
+<![CDATA[Mock location set up: 38.836702359004654, -77.10348659698158
+=== MOCK LOCATION VERIFICATION ===
+Mock location test result: {
+  success: [33mfalse[39m,
+  error: [32m'Geolocation error: Timeout expired (code: 3)'[39m
+}
+Page state after mock location: {
+  errorVisible: [33mtrue[39m,
+  errorText: [32m'❌ Failed to get locationTry Again'[39m,
+  loadingVisible: [33mtrue[39m,
+  loadingText: [32m'❌ Failed to get locationTry Again'[39m,
+  hasMapElements: [33mfalse[39m,
+  hasCanvas: [33mfalse[39m,
+  hasMapboxglMap: [33mfalse[39m,
+  hasMapboxglCanvas: [33mfalse[39m,
+  bodyText: [32m'\n    ❌ Failed to get locationTry Again\n    \n  \n\n'[39m,
+  consoleErrors: [],
+  consoleWarnings: []
+}
+JavaScript errors: [ [32m'Mapbox GL JS not loaded'[39m ]
+Geolocation API status: {
+  geolocationFunctions: [
+    [32m'WindowControlsOverlayGeometryChangeEvent'[39m,
+    [32m'WebGLUniformLocation'[39m,
+    [32m'VirtualKeyboardGeometryChangeEvent'[39m,
+    [32m'SVGTextPositioningElement'[39m,
+    [32m'SVGGeometryElement'[39m,
+    [32m'Location'[39m,
+    [32m'GeolocationPositionError'[39m,
+    [32m'GeolocationPosition'[39m,
+    [32m'GeolocationCoordinates'[39m,
+    [32m'Geolocation'[39m,
+    [32m'CompositionEvent'[39m,
+    [32m'CaretPosition'[39m,
+    [32m'CSSPositionValue'[39m,
+    [32m'CSSPositionTryRule'[39m,
+    [32m'CSSPositionTryDescriptors'[39m,
+    [32m'location'[39m,
+    [32m'locationbar'[39m
+  ],
+  hasNavigatorGeolocation: [33mtrue[39m,
+  geolocationType: [32m'object'[39m
+}
+Updated state after longer wait: {
+  errorVisible: [33mtrue[39m,
+  errorText: [32m'❌ Failed to get locationTry Again'[39m,
+  hasMapElements: [33mfalse[39m,
+  hasCanvas: [33mfalse[39m,
+  hasMapboxglMap: [33mfalse[39m,
+  bodyText: [32m'\n    ❌ Failed to get locationTry Again\n    \n  \n\n'[39m
+}
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Mock Location Implementation › should check if the application is actually using the geolocation API" classname="debug-mock-location.spec.ts" time="5.497">
+<system-out>
+<![CDATA[Mock location set up: 38.836702359004654, -77.10348659698158
+=== GEOLOCATION API USAGE CHECK ===
+Geolocation API usage: {
+  consoleLogs: [],
+  hasGeolocationCode: [33mfalse[39m,
+  locationFunctions: [
+    [32m'WindowControlsOverlayGeometryChangeEvent'[39m,
+    [32m'WebGLUniformLocation'[39m,
+    [32m'VirtualKeyboardGeometryChangeEvent'[39m,
+    [32m'SVGGeometryElement'[39m,
+    [32m'Location'[39m,
+    [32m'GeolocationPositionError'[39m,
+    [32m'GeolocationPosition'[39m,
+    [32m'GeolocationCoordinates'[39m,
+    [32m'Geolocation'[39m,
+    [32m'location'[39m,
+    [32m'locationbar'[39m
+  ]
+}
+Current page state: {
+  errorVisible: [33mfalse[39m,
+  errorText: [32m''[39m,
+  hasMapElements: [33mtrue[39m,
+  hasCanvas: [33mtrue[39m,
+  hasMapboxglMap: [33mtrue[39m,
+  bodyText: [32m'\n'[39m +
+    [32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy© Mapbox © OpenStreetMap Improve this map3D Buildings3D Terrain\n'[39m +
+    [32m'    \n'[39m +
+    [32m'  \n'[39m +
+    [32m'\n'[39m
+}
+]]>
+</system-out>
+</testcase>
+<testcase name="Debug Mock Location Implementation › should set up mock location before navigation to avoid timing issues" classname="debug-mock-location.spec.ts" time="5.625">
+<system-out>
+<![CDATA[Mock location set up BEFORE navigation
+=== PRE-NAVIGATION MOCK LOCATION TEST ===
+Geolocation calls check: { logs: [], hasGeolocation: [33mtrue[39m, geolocationType: [32m'object'[39m }
+Current page state with pre-navigation mock: {
+  errorVisible: [33mfalse[39m,
+  errorText: [32m''[39m,
+  hasMapElements: [33mtrue[39m,
+  hasCanvas: [33mtrue[39m,
+  hasMapboxglMap: [33mtrue[39m,
+  bodyText: [32m'\n'[39m +
+    [32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy© Mapbox © OpenStreetMap Improve this map3D Buildings3D Terrain\n'[39m +
+    [32m'    \n'[39m +
+    [32m'  \n'[39m +
+    [32m'\n'[39m
+}
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="debug-text.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="1" failures="0" skipped="0" time="1.085" errors="0">
+<testcase name="Debug Text Content › should show what text is actually present on the page" classname="debug-text.spec.ts" time="1.085">
+<system-out>
+<![CDATA[✅ Map ready signal received
+=== TEXT CONTENT ANALYSIS ===
+Full text length: [33m244[39m
+Full text (first 500 chars): 
+    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy❌ Map ErrorMap error event: A valid Mapbox access token is required to use Mapbox GL JS. To create an account or a new access token, visit https://account.mapbox.com/Retry
+    
+  
+
+
+Text nodes found: [33m8[39m
+Text nodes: [
+  { content: [32m'📍'[39m, parent: [32m'BUTTON'[39m, className: [32m'btn btn-primary'[39m },
+  {
+    content: [32m'Refresh Location'[39m,
+    parent: [32m'BUTTON'[39m,
+    className: [32m'btn btn-primary'[39m
+  },
+  {
+    content: [32m'🎯 Re-center'[39m,
+    parent: [32m'BUTTON'[39m,
+    className: [32m'btn btn-secondary'[39m
+  },
+  {
+    content: [32m'📋 Copy Coords'[39m,
+    parent: [32m'BUTTON'[39m,
+    className: [32m'btn btn-secondary'[39m
+  },
+  { content: [32m'Show Accuracy'[39m, parent: [32m'LABEL'[39m, className: [32m'toggle'[39m },
+  { content: [32m'❌ Map Error'[39m, parent: [32m'H3'[39m, className: [32m''[39m },
+  {
+    content: [32m'Map error event: A valid Mapbox access token is required to use Mapbox GL JS. To create an account or a new access token, visit https://account.mapbox.com/'[39m,
+    parent: [32m'P'[39m,
+    className: [32m''[39m
+  },
+  { content: [32m'Retry'[39m, parent: [32m'BUTTON'[39m, className: [32m'retry-btn'[39m }
+]
+Pattern matches: { map: [33m5[39m, mapbox: [33m3[39m, osm: [33m0[39m, copyright: [33m0[39m, location: [33m1[39m, coordinate: [33m0[39m }
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="7" failures="0" skipped="0" time="50.187" errors="0">
+<testcase name="End-to-End Tests › complete user journey - page load to application interaction" classname="e2e.spec.ts" time="5.59">
+</testcase>
+<testcase name="End-to-End Tests › should handle page refresh gracefully" classname="e2e.spec.ts" time="10.587">
+</testcase>
+<testcase name="End-to-End Tests › should work with browser back/forward navigation" classname="e2e.spec.ts" time="11.396">
+</testcase>
+<testcase name="End-to-End Tests › should handle network interruptions gracefully" classname="e2e.spec.ts" time="6.181">
+</testcase>
+<testcase name="End-to-End Tests › should maintain state during user interactions" classname="e2e.spec.ts" time="5.541">
+</testcase>
+<testcase name="End-to-End Tests › should handle different viewport sizes correctly" classname="e2e.spec.ts" time="8.54">
+<system-out>
+<![CDATA[Desktop viewport: 1920x1080
+Tablet viewport: 1024x768
+Mobile viewport: 375x667
+Small Mobile viewport: 320x568
+]]>
+</system-out>
+</testcase>
+<testcase name="End-to-End Tests › should load all required assets without errors" classname="e2e.spec.ts" time="2.352">
+</testcase>
+</testsuite>
+<testsuite name="map.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="8" failures="0" skipped="0" time="11.118" errors="0">
+<testcase name="Map Functionality Tests › should display the map when location is available" classname="map.spec.ts" time="0.771">
+<system-out>
+<![CDATA[✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should initialize Mapbox GL JS with location data" classname="map.spec.ts" time="0.75">
+<system-out>
+<![CDATA[✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should display map tiles when location is available" classname="map.spec.ts" time="0.738">
+<system-out>
+<![CDATA[✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should have proper map controls when map is loaded" classname="map.spec.ts" time="0.732">
+<system-out>
+<![CDATA[✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should handle map interactions when map is loaded" classname="map.spec.ts" time="0.843">
+<system-out>
+<![CDATA[✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should be responsive on different screen sizes when map is loaded" classname="map.spec.ts" time="1.303">
+<system-out>
+<![CDATA[✅ Map ready signal received
+✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should display location information when map is loaded" classname="map.spec.ts" time="0.727">
+<system-out>
+<![CDATA[✅ Map ready signal received
+]]>
+</system-out>
+</testcase>
+<testcase name="Map Functionality Tests › should handle geolocation errors gracefully" classname="map.spec.ts" time="5.254">
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2025-08-24T23:55:50.643Z" hostname="chromium" tests="5" failures="0" skipped="0" time="5.901" errors="0">
+<testcase name="Smoke Tests › should load the main page successfully" classname="smoke.spec.ts" time="0.387">
+</testcase>
+<testcase name="Smoke Tests › should load CSS assets correctly" classname="smoke.spec.ts" time="0.39">
+<system-out>
+<![CDATA[CSS styles found: [
+  [32m'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'[39m,
+  [32m'inline'[39m,
+  [32m'inline'[39m,
+  [32m'inline'[39m
+]
+]]>
+</system-out>
+</testcase>
+<testcase name="Smoke Tests › should load JavaScript assets correctly" classname="smoke.spec.ts" time="0.376">
+<system-out>
+<![CDATA[JavaScript scripts found: [
+  [32m'inline'[39m,
+  [32m'http://localhost:5173/@vite/client'[39m,
+  [32m'http://localhost:5173/src/main.tsx'[39m
+]
+]]>
+</system-out>
+</testcase>
+<testcase name="Smoke Tests › should not have console errors on page load" classname="smoke.spec.ts" time="2.363">
+</testcase>
+<testcase name="Smoke Tests › should have proper HTTP status codes" classname="smoke.spec.ts" time="2.385">
+</testcase>
+</testsuite>
+</testsuites>

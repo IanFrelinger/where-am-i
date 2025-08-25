@@ -15,14 +15,27 @@
     "test": "pnpm --filter web test && pnpm --filter api test",
     "lint": "pnpm --filter web lint && pnpm --filter api test",
     "deploy": "pnpm --filter infra deploy",
-    "destroy": "pnpm --filter infra destroy"
+    "destroy": "pnpm --filter infra destroy",
+    "test:playwright": "playwright test",
+    "test:playwright:smoke": "playwright test tests/smoke.spec.ts",
+    "test:playwright:map": "playwright test tests/map.spec.ts",
+    "test:playwright:e2e": "playwright test tests/e2e.spec.ts",
+    "test:playwright:quick": "playwright test tests/smoke.spec.ts tests/map.spec.ts",
+    "test:playwright:ui": "playwright test --ui",
+    "test:playwright:debug": "playwright test --debug",
+    "test:playwright:headed": "playwright test --headed",
+    "test:playwright:install": "playwright install"
   },
   "devDependencies": {
-            "concurrently": "^9.0.0",
+    "@playwright/test": "^1.55.0",
+    "concurrently": "^9.0.0",
     "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=8.0.0"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
   }
 }

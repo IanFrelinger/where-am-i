@@ -23,18 +23,52 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 8
       
       - name: Install dependencies
         run: pnpm install
       
-      - name: Run tests
-        run: pnpm test || echo "No tests found, continuing..."
+      - name: Install Playwright browsers
+        run: pnpm test:playwright:install
+      
+      - name: Run unit tests
+        run: pnpm test || echo "No unit tests found, continuing..."
       
       - name: Run linting
         run: pnpm lint || echo "Linting failed, continuing..."
+      
+      - name: Start development server
+        run: |
+          pnpm dev &
+          echo "Waiting for server to start..."
+          sleep 30
+          echo "Server started, running Playwright tests..."
+      
+      - name: Run Playwright tests
+        run: |
+          # Run smoke tests first
+          pnpm test:playwright:smoke --project=chromium
+          
+          # Run map tests
+          pnpm test:playwright:map --project=chromium
+          
+          # Run E2E tests
+          pnpm test:playwright:e2e --project=chromium
+          
+          # Run debug tests (these are informational, don't fail the build)
+          pnpm test:playwright tests/debug-*.spec.ts --project=chromium || echo "Debug tests completed"
+      
+      - name: Upload Playwright test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
 
   docker-build:
     needs: test

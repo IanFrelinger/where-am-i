@@ -1,0 +1,44 @@
+{
+    "DomainName": "whereami.dev",
+    "DurationInYears": 1,
+    "AutoRenew": true,
+    "AdminContact": {
+        "FirstName": "Ian",
+        "LastName": "Frelinger",
+        "ContactType": "PERSON",
+        "AddressLine1": "123 Main Street",
+        "City": "Your City",
+        "State": "Your State",
+        "CountryCode": "US",
+        "ZipCode": "12345",
+        "PhoneNumber": "+1.5551234567",
+        "Email": "your-email@example.com"
+    },
+    "RegistrantContact": {
+        "FirstName": "Ian",
+        "LastName": "Frelinger",
+        "ContactType": "PERSON",
+        "AddressLine1": "123 Main Street",
+        "City": "Your City",
+        "State": "Your State",
+        "CountryCode": "US",
+        "ZipCode": "12345",
+        "PhoneNumber": "+1.5551234567",
+        "Email": "your-email@example.com"
+    },
+    "TechContact": {
+        "FirstName": "Ian",
+        "LastName": "Frelinger",
+        "ContactType": "PERSON",
+        "AddressLine1": "123 Main Street",
+        "City": "Your City",
+        "State": "Your State",
+        "CountryCode": "US",
+        "ZipCode": "12345",
+        "PhoneNumber": "+1.5551234567",
+        "Email": "your-email@example.com"
+    },
+    "PrivacyProtectAdminContact": true,
+    "PrivacyProtectRegistrantContact": true,
+    "PrivacyProtectTechContact": true
+}

@@ -1,0 +1,1620 @@
+{
+  "config": {
+    "configFile": "/Users/ianfrelinger/where-am-i/playwright.config.ts",
+    "rootDir": "/Users/ianfrelinger/where-am-i/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 6
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/ianfrelinger/where-am-i/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/ianfrelinger/where-am-i/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/ianfrelinger/where-am-i/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/ianfrelinger/where-am-i/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/ianfrelinger/where-am-i/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/ianfrelinger/where-am-i/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/ianfrelinger/where-am-i/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Users/ianfrelinger/where-am-i/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/ianfrelinger/where-am-i/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Users/ianfrelinger/where-am-i/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "debug-app-state.spec.ts",
+      "file": "debug-app-state.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Debug Application State",
+          "file": "debug-app-state.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should investigate why the map ready signal is not being emitted",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5484,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "=== APPLICATION STATE INVESTIGATION ===\n"
+                        },
+                        {
+                          "text": "Page state: {\n  errorVisible: \u001b[33mfalse\u001b[39m,\n  errorText: \u001b[32m''\u001b[39m,\n  loadingVisible: \u001b[33mfalse\u001b[39m,\n  loadingText: \u001b[32m''\u001b[39m,\n  hasMapElements: \u001b[33mtrue\u001b[39m,\n  hasCanvas: \u001b[33mtrue\u001b[39m,\n  hasMapboxglMap: \u001b[33mfalse\u001b[39m,\n  bodyText: \u001b[32m'\\n'\u001b[39m +\n    \u001b[32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy❌ Map ErrorMap error event: A valid Mapbox access token is required to use Mapbox GL JS. To create an account or a new access token, visit https://account.mapbox.com/Retry\\n'\u001b[39m +\n    \u001b[32m'    \\n'\u001b[39m +\n    \u001b[32m'  \\n'\u001b[39m +\n    \u001b[32m'\\n'\u001b[39m,\n  hasTestStyle: \u001b[33mtrue\u001b[39m,\n  testStyleType: \u001b[32m'object'\u001b[39m,\n  hasMapReady: \u001b[33mtrue\u001b[39m,\n  mapReadyValue: \u001b[33mtrue\u001b[39m,\n  consoleErrors: [],\n  geolocationCalled: \u001b[33mfalse\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Geolocation status: { logs: [], hasGeolocation: \u001b[33mtrue\u001b[39m, geolocationType: \u001b[32m'object'\u001b[39m }\n"
+                        },
+                        {
+                          "text": "Location attempts: {\n  hasLocationText: \u001b[33mtrue\u001b[39m,\n  hasErrorText: \u001b[33mtrue\u001b[39m,\n  hasLoadingText: \u001b[33mfalse\u001b[39m,\n  hasWelcomeText: \u001b[33mfalse\u001b[39m,\n  hasMapText: \u001b[33mtrue\u001b[39m,\n  hasWhereAmIText: \u001b[33mfalse\u001b[39m,\n  hasCoordinates: \u001b[33mfalse\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "JavaScript errors: [ \u001b[32m'Mapbox GL JS not loaded'\u001b[39m ]\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:50.971Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "27b3984b88e0dc051423-939015ac0df50e8d9fe5",
+              "file": "debug-app-state.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "debug-location.spec.ts",
+      "file": "debug-location.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Debug Location Service Failure",
+          "file": "debug-location.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should investigate location service failure in detail",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5779,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "=== LOCATION SERVICE DEBUG ===\n"
+                        },
+                        {
+                          "text": "Console messages: [\n  \u001b[32m'debug: [vite] connecting...'\u001b[39m,\n  \u001b[32m'info: %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold'\u001b[39m,\n  \u001b[32m'debug: [vite] connected.'\u001b[39m\n]\n"
+                        },
+                        {
+                          "text": "Console errors: []\n"
+                        },
+                        {
+                          "text": "Network errors: []\n"
+                        },
+                        {
+                          "text": "Page state: {\n  geolocationAvailable: \u001b[33mtrue\u001b[39m,\n  isSecureContext: \u001b[33mtrue\u001b[39m,\n  protocol: \u001b[32m'http:'\u001b[39m,\n  globalError: \u001b[90mundefined\u001b[39m,\n  hasLocationVars: { hasMap: \u001b[33mfalse\u001b[39m, hasMapboxgl: \u001b[33mfalse\u001b[39m, hasGeolocation: \u001b[33mfalse\u001b[39m },\n  readyState: \u001b[32m'complete'\u001b[39m,\n  errorElements: {\n    error: \u001b[33mfalse\u001b[39m,\n    errorText: \u001b[32m''\u001b[39m,\n    loading: \u001b[33mtrue\u001b[39m,\n    loadingText: \u001b[32m'Getting your location...'\u001b[39m\n  }\n}\n"
+                        },
+                        {
+                          "text": "Script status: {\n  totalScripts: \u001b[33m3\u001b[39m,\n  externalScripts: [\n    {\n      src: \u001b[32m'http://localhost:5173/@vite/client'\u001b[39m,\n      loaded: \u001b[90mundefined\u001b[39m,\n      error: \u001b[32m'No error handler'\u001b[39m\n    },\n    {\n      src: \u001b[32m'http://localhost:5173/src/main.tsx'\u001b[39m,\n      loaded: \u001b[90mundefined\u001b[39m,\n      error: \u001b[32m'No error handler'\u001b[39m\n    }\n  ],\n  inlineScripts: \u001b[33m1\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Mapbox status: { loaded: \u001b[33mfalse\u001b[39m, error: \u001b[32m'Mapbox GL JS not found in global scope'\u001b[39m }\n"
+                        },
+                        {
+                          "text": "Geolocation status: { available: \u001b[33mtrue\u001b[39m, secureContext: \u001b[33mtrue\u001b[39m, protocol: \u001b[32m'http:'\u001b[39m }\n"
+                        },
+                        {
+                          "text": "Application errors: {\n  errorVisible: \u001b[33mfalse\u001b[39m,\n  errorText: \u001b[32m''\u001b[39m,\n  loadingVisible: \u001b[33mtrue\u001b[39m,\n  loadingText: \u001b[32m'Getting your location...'\u001b[39m,\n  bodyText: \u001b[32m'\\n    Getting your location...\\n    \\n  \\n\\n'\u001b[39m\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:50.968Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "859b1087a94eff5229e8-e3113ceb183690873f7e",
+              "file": "debug-location.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should try to manually trigger geolocation and see what happens",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 17724,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "=== MANUAL GEOLOCATION TEST ===\n"
+                        },
+                        {
+                          "text": "Manual geolocation result: {\n  success: \u001b[33mfalse\u001b[39m,\n  error: \u001b[32m'Geolocation error: Timeout expired (code: 3)'\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Updated state after manual geolocation: {\n  errorVisible: \u001b[33mtrue\u001b[39m,\n  errorText: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n  hasMapElements: \u001b[33mfalse\u001b[39m,\n  hasCanvas: \u001b[33mfalse\u001b[39m,\n  hasMapboxglMap: \u001b[33mfalse\u001b[39m\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:50.980Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "859b1087a94eff5229e8-f555387fafe142d81c4e",
+              "file": "debug-location.spec.ts",
+              "line": 173,
+              "column": 7
+            },
+            {
+              "title": "should check if there are any environment or configuration issues",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 2740,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "=== ENVIRONMENT CHECK ===\n"
+                        },
+                        {
+                          "text": "Environment info: {\n  userAgent: \u001b[32m'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36'\u001b[39m,\n  platform: \u001b[32m'MacIntel'\u001b[39m,\n  language: \u001b[32m'en-US'\u001b[39m,\n  isSecureContext: \u001b[33mtrue\u001b[39m,\n  protocol: \u001b[32m'http:'\u001b[39m,\n  hostname: \u001b[32m'localhost'\u001b[39m,\n  features: {\n    geolocation: \u001b[33mtrue\u001b[39m,\n    serviceWorker: \u001b[33mtrue\u001b[39m,\n    localStorage: \u001b[33mtrue\u001b[39m,\n    sessionStorage: \u001b[33mtrue\u001b[39m,\n    indexedDB: \u001b[33mtrue\u001b[39m\n  },\n  globalConfig: {\n    hasEnv: \u001b[33mfalse\u001b[39m,\n    hasConfig: \u001b[33mfalse\u001b[39m,\n    hasProcess: \u001b[33mfalse\u001b[39m,\n    hasNodeEnv: \u001b[33mfalse\u001b[39m\n  }\n}\n"
+                        },
+                        {
+                          "text": "Missing configuration: [ \u001b[32m'Mapbox GL JS not loaded'\u001b[39m ]\n"
+                        },
+                        {
+                          "text": "Network status: {\n  images: [],\n  scripts: [\n    { src: \u001b[32m''\u001b[39m, complete: \u001b[90mundefined\u001b[39m, type: \u001b[32m'module'\u001b[39m },\n    {\n      src: \u001b[32m'http://localhost:5173/@vite/client'\u001b[39m,\n      complete: \u001b[90mundefined\u001b[39m,\n      type: \u001b[32m'module'\u001b[39m\n    },\n    {\n      src: \u001b[32m'http://localhost:5173/src/main.tsx'\u001b[39m,\n      complete: \u001b[90mundefined\u001b[39m,\n      type: \u001b[32m'module'\u001b[39m\n    }\n  ]\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:50.968Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "859b1087a94eff5229e8-ff4c395a490a7990ef93",
+              "file": "debug-location.spec.ts",
+              "line": 252,
+              "column": 7
+            },
+            {
+              "title": "should try different geolocation strategies and mock location",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 10765,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "=== MOCK LOCATION TEST ===\n"
+                        },
+                        {
+                          "text": "Mock location result: {\n  success: \u001b[33mtrue\u001b[39m,\n  coords: {\n    latitude: \u001b[33m38.836702359004654\u001b[39m,\n    longitude: \u001b[33m-77.10348659698158\u001b[39m,\n    accuracy: \u001b[33m100\u001b[39m\n  },\n  isMock: \u001b[33mtrue\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Updated state after mock location: {\n  errorVisible: \u001b[33mfalse\u001b[39m,\n  errorText: \u001b[32m''\u001b[39m,\n  loadingVisible: \u001b[33mfalse\u001b[39m,\n  loadingText: \u001b[32m''\u001b[39m,\n  hasMapElements: \u001b[33mtrue\u001b[39m,\n  hasCanvas: \u001b[33mtrue\u001b[39m,\n  hasMapboxglMap: \u001b[33mtrue\u001b[39m,\n  bodyText: \u001b[32m'\\n'\u001b[39m +\n    \u001b[32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy© Mapbox © OpenStreetMap Improve this map3D Buildings3D Terrain\\n'\u001b[39m +\n    \u001b[32m'    \\n'\u001b[39m +\n    \u001b[32m'  \\n'\u001b[39m +\n    \u001b[32m'\\n'\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Mapbox status after mock location: {\n  loaded: \u001b[33mfalse\u001b[39m,\n  error: \u001b[32m'Mapbox GL JS still not found in global scope'\u001b[39m\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:50.967Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "859b1087a94eff5229e8-0591aec44689c5b051c9",
+              "file": "debug-location.spec.ts",
+              "line": 351,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "debug-map.spec.ts",
+      "file": "debug-map.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Debug Map Structure",
+          "file": "debug-map.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should inspect page structure to find map elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 7792,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Page title: Where Am I? 🌍\n"
+                        },
+                        {
+                          "text": "Location error visible: \u001b[33mtrue\u001b[39m\n"
+                        },
+                        {
+                          "text": "Error text: ❌ Failed to get locationTry Again\n"
+                        },
+                        {
+                          "text": "Loading container visible: \u001b[33mtrue\u001b[39m\n"
+                        },
+                        {
+                          "text": "Elements with \"map\" in class name: []\n"
+                        },
+                        {
+                          "text": "All div elements: [\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m''\u001b[39m,\n    id: \u001b[32m'root'\u001b[39m,\n    textContent: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m1\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'app'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m1\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'loading-container'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m1\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'error'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m2\u001b[39m\n  }\n]\n"
+                        },
+                        {
+                          "text": "Canvas elements: []\n"
+                        },
+                        {
+                          "text": "Mapbox elements: {\n  hasMapboxglMap: \u001b[33mfalse\u001b[39m,\n  hasMapboxglCanvas: \u001b[33mfalse\u001b[39m,\n  hasMapboxglContainer: \u001b[33mfalse\u001b[39m,\n  mapboxglMapClass: \u001b[32m''\u001b[39m,\n  mapboxglCanvasClass: \u001b[32m''\u001b[39m,\n  mapboxglContainerClass: \u001b[32m''\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Potential map containers: {\n  \u001b[32m'.map-container'\u001b[39m: { found: \u001b[33mfalse\u001b[39m, className: \u001b[32m''\u001b[39m, id: \u001b[32m''\u001b[39m, visible: \u001b[33mfalse\u001b[39m },\n  \u001b[32m'.map'\u001b[39m: { found: \u001b[33mfalse\u001b[39m, className: \u001b[32m''\u001b[39m, id: \u001b[32m''\u001b[39m, visible: \u001b[33mfalse\u001b[39m },\n  \u001b[32m'#map'\u001b[39m: { found: \u001b[33mfalse\u001b[39m, className: \u001b[32m''\u001b[39m, id: \u001b[32m''\u001b[39m, visible: \u001b[33mfalse\u001b[39m },\n  \u001b[32m'[data-testid*=\"map\"]'\u001b[39m: { found: \u001b[33mfalse\u001b[39m, className: \u001b[32m''\u001b[39m, id: \u001b[32m''\u001b[39m, visible: \u001b[33mfalse\u001b[39m },\n  \u001b[32m'[class*=\"mapbox\"]'\u001b[39m: { found: \u001b[33mfalse\u001b[39m, className: \u001b[32m''\u001b[39m, id: \u001b[32m''\u001b[39m, visible: \u001b[33mfalse\u001b[39m },\n  \u001b[32m'[class*=\"leaflet\"]'\u001b[39m: { found: \u001b[33mfalse\u001b[39m, className: \u001b[32m''\u001b[39m, id: \u001b[32m''\u001b[39m, visible: \u001b[33mfalse\u001b[39m }\n}\n"
+                        },
+                        {
+                          "text": "Buttons found: [\n  {\n    text: \u001b[32m'Try Again'\u001b[39m,\n    className: \u001b[32m'btn btn-primary'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m\n  }\n]\n"
+                        },
+                        {
+                          "text": "Body content preview: \n    ❌ Failed to get locationTry Again\n    \n  \n\n\n"
+                        },
+                        {
+                          "text": "Console messages: []\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:50.964Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f6193c1bbc80d02007fc-b8d1100ede735dc672b2",
+              "file": "debug-map.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should try to grant location permission and see if map appears",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 5707,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "After granting location permission...\n"
+                        },
+                        {
+                          "text": "Location error still visible: \u001b[33mfalse\u001b[39m\n"
+                        },
+                        {
+                          "text": "Map elements after location permission: []\n"
+                        },
+                        {
+                          "text": "All divs after location permission: [\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m''\u001b[39m,\n    id: \u001b[32m'root'\u001b[39m,\n    textContent: \u001b[32m'Getting your location...'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m1\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'app'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m'Getting your location...'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m1\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'loading-container'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m'Getting your location...'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m1\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'loading'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m'Getting your location...'\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m2\u001b[39m\n  },\n  {\n    tagName: \u001b[32m'DIV'\u001b[39m,\n    className: \u001b[32m'spinner'\u001b[39m,\n    id: \u001b[32m''\u001b[39m,\n    textContent: \u001b[32m''\u001b[39m,\n    visible: \u001b[33mtrue\u001b[39m,\n    children: \u001b[33m0\u001b[39m\n  }\n]\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:53.907Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f6193c1bbc80d02007fc-9282cf757cba814cea7f",
+              "file": "debug-map.spec.ts",
+              "line": 164,
+              "column": 7
+            },
+            {
+              "title": "should try clicking the Try Again button to see if map appears",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3147,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Try Again button visible: \u001b[33mfalse\u001b[39m\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:56.650Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f6193c1bbc80d02007fc-151d98eb418b2ac5245c",
+              "file": "debug-map.spec.ts",
+              "line": 220,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "debug-mock-location.spec.ts",
+      "file": "debug-mock-location.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Debug Mock Location Implementation",
+          "file": "debug-mock-location.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should verify mock location is working and investigate why map still fails",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 21815,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Mock location set up: 38.836702359004654, -77.10348659698158\n"
+                        },
+                        {
+                          "text": "=== MOCK LOCATION VERIFICATION ===\n"
+                        },
+                        {
+                          "text": "Mock location test result: {\n  success: \u001b[33mfalse\u001b[39m,\n  error: \u001b[32m'Geolocation error: Timeout expired (code: 3)'\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Page state after mock location: {\n  errorVisible: \u001b[33mtrue\u001b[39m,\n  errorText: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n  loadingVisible: \u001b[33mtrue\u001b[39m,\n  loadingText: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n  hasMapElements: \u001b[33mfalse\u001b[39m,\n  hasCanvas: \u001b[33mfalse\u001b[39m,\n  hasMapboxglMap: \u001b[33mfalse\u001b[39m,\n  hasMapboxglCanvas: \u001b[33mfalse\u001b[39m,\n  bodyText: \u001b[32m'\\n    ❌ Failed to get locationTry Again\\n    \\n  \\n\\n'\u001b[39m,\n  consoleErrors: [],\n  consoleWarnings: []\n}\n"
+                        },
+                        {
+                          "text": "JavaScript errors: [ \u001b[32m'Mapbox GL JS not loaded'\u001b[39m ]\n"
+                        },
+                        {
+                          "text": "Geolocation API status: {\n  geolocationFunctions: [\n    \u001b[32m'WindowControlsOverlayGeometryChangeEvent'\u001b[39m,\n    \u001b[32m'WebGLUniformLocation'\u001b[39m,\n    \u001b[32m'VirtualKeyboardGeometryChangeEvent'\u001b[39m,\n    \u001b[32m'SVGTextPositioningElement'\u001b[39m,\n    \u001b[32m'SVGGeometryElement'\u001b[39m,\n    \u001b[32m'Location'\u001b[39m,\n    \u001b[32m'GeolocationPositionError'\u001b[39m,\n    \u001b[32m'GeolocationPosition'\u001b[39m,\n    \u001b[32m'GeolocationCoordinates'\u001b[39m,\n    \u001b[32m'Geolocation'\u001b[39m,\n    \u001b[32m'CompositionEvent'\u001b[39m,\n    \u001b[32m'CaretPosition'\u001b[39m,\n    \u001b[32m'CSSPositionValue'\u001b[39m,\n    \u001b[32m'CSSPositionTryRule'\u001b[39m,\n    \u001b[32m'CSSPositionTryDescriptors'\u001b[39m,\n    \u001b[32m'location'\u001b[39m,\n    \u001b[32m'locationbar'\u001b[39m\n  ],\n  hasNavigatorGeolocation: \u001b[33mtrue\u001b[39m,\n  geolocationType: \u001b[32m'object'\u001b[39m\n}\n"
+                        },
+                        {
+                          "text": "Updated state after longer wait: {\n  errorVisible: \u001b[33mtrue\u001b[39m,\n  errorText: \u001b[32m'❌ Failed to get locationTry Again'\u001b[39m,\n  hasMapElements: \u001b[33mfalse\u001b[39m,\n  hasCanvas: \u001b[33mfalse\u001b[39m,\n  hasMapboxglMap: \u001b[33mfalse\u001b[39m,\n  bodyText: \u001b[32m'\\n    ❌ Failed to get locationTry Again\\n    \\n  \\n\\n'\u001b[39m\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:56.943Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ec36f9cb95c40d9d288-9657aba52c57ce90551d",
+              "file": "debug-mock-location.spec.ts",
+              "line": 5,
+              "column": 7
+            },
+            {
+              "title": "should check if the application is actually using the geolocation API",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 5497,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Mock location set up: 38.836702359004654, -77.10348659698158\n"
+                        },
+                        {
+                          "text": "=== GEOLOCATION API USAGE CHECK ===\n"
+                        },
+                        {
+                          "text": "Geolocation API usage: {\n  consoleLogs: [],\n  hasGeolocationCode: \u001b[33mfalse\u001b[39m,\n  locationFunctions: [\n    \u001b[32m'WindowControlsOverlayGeometryChangeEvent'\u001b[39m,\n    \u001b[32m'WebGLUniformLocation'\u001b[39m,\n    \u001b[32m'VirtualKeyboardGeometryChangeEvent'\u001b[39m,\n    \u001b[32m'SVGGeometryElement'\u001b[39m,\n    \u001b[32m'Location'\u001b[39m,\n    \u001b[32m'GeolocationPositionError'\u001b[39m,\n    \u001b[32m'GeolocationPosition'\u001b[39m,\n    \u001b[32m'GeolocationCoordinates'\u001b[39m,\n    \u001b[32m'Geolocation'\u001b[39m,\n    \u001b[32m'location'\u001b[39m,\n    \u001b[32m'locationbar'\u001b[39m\n  ]\n}\n"
+                        },
+                        {
+                          "text": "Current page state: {\n  errorVisible: \u001b[33mfalse\u001b[39m,\n  errorText: \u001b[32m''\u001b[39m,\n  hasMapElements: \u001b[33mtrue\u001b[39m,\n  hasCanvas: \u001b[33mtrue\u001b[39m,\n  hasMapboxglMap: \u001b[33mtrue\u001b[39m,\n  bodyText: \u001b[32m'\\n'\u001b[39m +\n    \u001b[32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy© Mapbox © OpenStreetMap Improve this map3D Buildings3D Terrain\\n'\u001b[39m +\n    \u001b[32m'    \\n'\u001b[39m +\n    \u001b[32m'  \\n'\u001b[39m +\n    \u001b[32m'\\n'\u001b[39m\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:58.965Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ec36f9cb95c40d9d288-d66c7839a0b68c6160f2",
+              "file": "debug-mock-location.spec.ts",
+              "line": 152,
+              "column": 7
+            },
+            {
+              "title": "should set up mock location before navigation to avoid timing issues",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 5625,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Mock location set up BEFORE navigation\n"
+                        },
+                        {
+                          "text": "=== PRE-NAVIGATION MOCK LOCATION TEST ===\n"
+                        },
+                        {
+                          "text": "Geolocation calls check: { logs: [], hasGeolocation: \u001b[33mtrue\u001b[39m, geolocationType: \u001b[32m'object'\u001b[39m }\n"
+                        },
+                        {
+                          "text": "Current page state with pre-navigation mock: {\n  errorVisible: \u001b[33mfalse\u001b[39m,\n  errorText: \u001b[32m''\u001b[39m,\n  hasMapElements: \u001b[33mtrue\u001b[39m,\n  hasCanvas: \u001b[33mtrue\u001b[39m,\n  hasMapboxglMap: \u001b[33mtrue\u001b[39m,\n  bodyText: \u001b[32m'\\n'\u001b[39m +\n    \u001b[32m'    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy© Mapbox © OpenStreetMap Improve this map3D Buildings3D Terrain\\n'\u001b[39m +\n    \u001b[32m'    \\n'\u001b[39m +\n    \u001b[32m'  \\n'\u001b[39m +\n    \u001b[32m'\\n'\u001b[39m\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:59.623Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ec36f9cb95c40d9d288-bab52c6b065d34d2cfbe",
+              "file": "debug-mock-location.spec.ts",
+              "line": 251,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "debug-text.spec.ts",
+      "file": "debug-text.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Debug Text Content",
+          "file": "debug-text.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should show what text is actually present on the page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1085,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        },
+                        {
+                          "text": "=== TEXT CONTENT ANALYSIS ===\n"
+                        },
+                        {
+                          "text": "Full text length: \u001b[33m244\u001b[39m\n"
+                        },
+                        {
+                          "text": "Full text (first 500 chars): \n    📍 Refresh Location🎯 Re-center📋 Copy CoordsShow Accuracy❌ Map ErrorMap error event: A valid Mapbox access token is required to use Mapbox GL JS. To create an account or a new access token, visit https://account.mapbox.com/Retry\n    \n  \n\n\n"
+                        },
+                        {
+                          "text": "Text nodes found: \u001b[33m8\u001b[39m\n"
+                        },
+                        {
+                          "text": "Text nodes: [\n  { content: \u001b[32m'📍'\u001b[39m, parent: \u001b[32m'BUTTON'\u001b[39m, className: \u001b[32m'btn btn-primary'\u001b[39m },\n  {\n    content: \u001b[32m'Refresh Location'\u001b[39m,\n    parent: \u001b[32m'BUTTON'\u001b[39m,\n    className: \u001b[32m'btn btn-primary'\u001b[39m\n  },\n  {\n    content: \u001b[32m'🎯 Re-center'\u001b[39m,\n    parent: \u001b[32m'BUTTON'\u001b[39m,\n    className: \u001b[32m'btn btn-secondary'\u001b[39m\n  },\n  {\n    content: \u001b[32m'📋 Copy Coords'\u001b[39m,\n    parent: \u001b[32m'BUTTON'\u001b[39m,\n    className: \u001b[32m'btn btn-secondary'\u001b[39m\n  },\n  { content: \u001b[32m'Show Accuracy'\u001b[39m, parent: \u001b[32m'LABEL'\u001b[39m, className: \u001b[32m'toggle'\u001b[39m },\n  { content: \u001b[32m'❌ Map Error'\u001b[39m, parent: \u001b[32m'H3'\u001b[39m, className: \u001b[32m''\u001b[39m },\n  {\n    content: \u001b[32m'Map error event: A valid Mapbox access token is required to use Mapbox GL JS. To create an account or a new access token, visit https://account.mapbox.com/'\u001b[39m,\n    parent: \u001b[32m'P'\u001b[39m,\n    className: \u001b[32m''\u001b[39m\n  },\n  { content: \u001b[32m'Retry'\u001b[39m, parent: \u001b[32m'BUTTON'\u001b[39m, className: \u001b[32m'retry-btn'\u001b[39m }\n]\n"
+                        },
+                        {
+                          "text": "Pattern matches: { map: \u001b[33m5\u001b[39m, mapbox: \u001b[33m3\u001b[39m, osm: \u001b[33m0\u001b[39m, copyright: \u001b[33m0\u001b[39m, location: \u001b[33m1\u001b[39m, coordinate: \u001b[33m0\u001b[39m }\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:55:59.804Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ef4cfbfdee679128201a-380a6f0a2a8c7813cd73",
+              "file": "debug-text.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "e2e.spec.ts",
+      "file": "e2e.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "End-to-End Tests",
+          "file": "e2e.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "complete user journey - page load to application interaction",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5590,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:00.900Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-65ad15490d51ce63cc87",
+              "file": "e2e.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should handle page refresh gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 10587,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:01.933Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-203e0f1e8248c2865350",
+              "file": "e2e.spec.ts",
+              "line": 40,
+              "column": 7
+            },
+            {
+              "title": "should work with browser back/forward navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 11396,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:04.470Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-a1f6d67cade6571cf761",
+              "file": "e2e.spec.ts",
+              "line": 63,
+              "column": 7
+            },
+            {
+              "title": "should handle network interruptions gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 6181,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:05.258Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-4d43bcccf490689c6e30",
+              "file": "e2e.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "should maintain state during user interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5541,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:06.495Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-0771b68dda70176fb68c",
+              "file": "e2e.spec.ts",
+              "line": 119,
+              "column": 7
+            },
+            {
+              "title": "should handle different viewport sizes correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 8540,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Desktop viewport: 1920x1080\n"
+                        },
+                        {
+                          "text": "Tablet viewport: 1024x768\n"
+                        },
+                        {
+                          "text": "Mobile viewport: 375x667\n"
+                        },
+                        {
+                          "text": "Small Mobile viewport: 320x568\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:08.896Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-415d80706654e23daa37",
+              "file": "e2e.spec.ts",
+              "line": 144,
+              "column": 7
+            },
+            {
+              "title": "should load all required assets without errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 2352,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:11.443Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-d40dbe7dd1349d05dff1",
+              "file": "e2e.spec.ts",
+              "line": 179,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "map.spec.ts",
+      "file": "map.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Map Functionality Tests",
+          "file": "map.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display the map when location is available",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 771,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:12.043Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-1949bb50978bd44e70a2",
+              "file": "map.spec.ts",
+              "line": 5,
+              "column": 7
+            },
+            {
+              "title": "should initialize Mapbox GL JS with location data",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 750,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:12.529Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-7bda00f90183ac17e466",
+              "file": "map.spec.ts",
+              "line": 27,
+              "column": 7
+            },
+            {
+              "title": "should display map tiles when location is available",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 738,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:12.819Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-71f65fba8fa6f5be8035",
+              "file": "map.spec.ts",
+              "line": 48,
+              "column": 7
+            },
+            {
+              "title": "should have proper map controls when map is loaded",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 732,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:13.285Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-8c507cf076c3730ac269",
+              "file": "map.spec.ts",
+              "line": 82,
+              "column": 7
+            },
+            {
+              "title": "should handle map interactions when map is loaded",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 843,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:13.562Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-98d4214cd4257747411c",
+              "file": "map.spec.ts",
+              "line": 110,
+              "column": 7
+            },
+            {
+              "title": "should be responsive on different screen sizes when map is loaded",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1303,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        },
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:13.808Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-b78dd62780744493c74d",
+              "file": "map.spec.ts",
+              "line": 137,
+              "column": 7
+            },
+            {
+              "title": "should display location information when map is loaded",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 727,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Map ready signal received\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:14.022Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-60eb008680e4cf5151d5",
+              "file": "map.spec.ts",
+              "line": 172,
+              "column": 7
+            },
+            {
+              "title": "should handle geolocation errors gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5254,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:14.411Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2d8799038d2916f69765-3f4a23ab7ef2a85646c0",
+              "file": "map.spec.ts",
+              "line": 217,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "smoke.spec.ts",
+      "file": "smoke.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Smoke Tests",
+          "file": "smoke.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load the main page successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 387,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:14.756Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4219922fea2e2bd3c691-2438d7925066af37d867",
+              "file": "smoke.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should load CSS assets correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 390,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "CSS styles found: [\n  \u001b[32m'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'\u001b[39m,\n  \u001b[32m'inline'\u001b[39m,\n  \u001b[32m'inline'\u001b[39m,\n  \u001b[32m'inline'\u001b[39m\n]\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:15.118Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4219922fea2e2bd3c691-64324a803357a578b3a9",
+              "file": "smoke.spec.ts",
+              "line": 15,
+              "column": 7
+            },
+            {
+              "title": "should load JavaScript assets correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 376,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "JavaScript scripts found: [\n  \u001b[32m'inline'\u001b[39m,\n  \u001b[32m'http://localhost:5173/@vite/client'\u001b[39m,\n  \u001b[32m'http://localhost:5173/src/main.tsx'\u001b[39m\n]\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:15.148Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4219922fea2e2bd3c691-bd0b7a507378ac63550a",
+              "file": "smoke.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "should not have console errors on page load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 2363,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:15.513Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4219922fea2e2bd3c691-b650ca6d1e639842f05d",
+              "file": "smoke.spec.ts",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "should have proper HTTP status codes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 2385,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T23:56:15.530Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4219922fea2e2bd3c691-5b8341863b40f5f9cd94",
+              "file": "smoke.spec.ts",
+              "line": 115,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-24T23:55:50.619Z",
+    "duration": 29085.009000000002,
+    "expected": 32,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

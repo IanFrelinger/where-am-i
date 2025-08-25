@@ -8,46 +8,20 @@ import * as ddb from 'aws-cdk-lib/aws-dynamodb'
 import * as lambda from 'aws-cdk-lib/aws-lambda-nodejs'
 import * as lambdaRuntime from 'aws-cdk-lib/aws-lambda'
 import * as iam from 'aws-cdk-lib/aws-iam'
-import * as route53 from 'aws-cdk-lib/aws-route53'
-import * as route53targets from 'aws-cdk-lib/aws-route53-targets'
-import * as acm from 'aws-cdk-lib/aws-certificatemanager'
 import { Construct } from 'constructs'
 
-export class WhereAmIStack extends Stack {
+export class WhereAmIStackSimple extends Stack {
   constructor(scope: Construct, id: string, props?: any) {
     super(scope, id, props)
 
-    // Domain configuration - update these for your domain
-    const domainName = process.env.DOMAIN_NAME || 'your-domain.com'
-    const apiSubdomain = process.env.API_SUBDOMAIN || 'api.your-domain.com'
-
-    // Hosted zone for your domain
-    const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
-      domainName: domainName,
-    })
-
-    // SSL Certificate for your domain
-    const certificate = new acm.Certificate(this, 'Certificate', {
-      domainName: domainName,
-      subjectAlternativeNames: [apiSubdomain],
-      validation: acm.CertificateValidation.fromDns(hostedZone),
-    })
-
     // S3 bucket for static website hosting
     const siteBucket = new s3.Bucket(this, 'SiteBucket', {
+      websiteIndexDocument: 'index.html',
+      websiteErrorDocument: 'index.html', // SPA routing
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
-      cors: [
-        {
-          allowedMethods: [s3.HttpMethods.GET],
-          allowedOrigins: [`https://${domainName}`, `https://www.${domainName}`],
-          allowedHeaders: ['*'],
-        },
-      ],
     })
-
-
 
     // DynamoDB table for geocoding cache
     const cacheTable = new ddb.Table(this, 'CacheTable', {
@@ -57,9 +31,9 @@ export class WhereAmIStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
-    // Lambda function for combined geocoding (IP + coordinates)
-    const combinedGeoFunction = new lambda.NodejsFunction(this, 'CombinedGeoFunction', {
-      entry: '../packages/api/dist/combined-geo.js',
+    // Lambda function for reverse geocoding
+    const reverseFunction = new lambda.NodejsFunction(this, 'ReverseFunction', {
+      entry: '../packages/api/dist/reverse.js',
       runtime: lambdaRuntime.Runtime.NODEJS_20_X,
       timeout: Duration.seconds(30),
       memorySize: 256,
@@ -75,9 +49,7 @@ export class WhereAmIStack extends Stack {
     })
 
     // Grant DynamoDB permissions to Lambda
-    cacheTable.grantReadWriteData(combinedGeoFunction)
-
-
+    cacheTable.grantReadWriteData(reverseFunction)
 
     // Lambda function for health check
     const healthFunction = new lambda.NodejsFunction(this, 'HealthFunction', {
@@ -92,12 +64,12 @@ export class WhereAmIStack extends Stack {
       },
     })
 
-    // API Gateway HTTP API with custom domain
+    // API Gateway HTTP API
     const httpApi = new apigw.HttpApi(this, 'WhereAmIApi', {
       corsPreflight: {
         allowHeaders: ['Content-Type', 'Accept'],
         allowMethods: [apigw.CorsHttpMethod.GET],
-        allowOrigins: [`https://${domainName}`, `https://www.${domainName}`],
+        allowOrigins: ['*'],
         maxAge: Duration.days(1),
       },
       defaultIntegration: new apigwInt.HttpLambdaIntegration('DefaultIntegration', healthFunction),
@@ -110,27 +82,27 @@ export class WhereAmIStack extends Stack {
       integration: new apigwInt.HttpLambdaIntegration('HealthIntegration', healthFunction),
     })
 
-
-
     httpApi.addRoutes({
       path: '/reverse',
       methods: [apigw.HttpMethod.GET],
-      integration: new apigwInt.HttpLambdaIntegration('CombinedGeoIntegration', combinedGeoFunction),
+      integration: new apigwInt.HttpLambdaIntegration('ReverseIntegration', reverseFunction),
     })
 
-    // CloudFront distribution with custom domain and HTTPS
+    // CloudFront distribution with OAI
+    const originAccessIdentity = new cf.OriginAccessIdentity(this, 'OriginAccessIdentity', {
+      comment: 'OAI for Where Am I S3 bucket',
+    })
+
+    // Grant CloudFront access to S3 bucket
+    siteBucket.grantRead(originAccessIdentity)
+
     const distribution = new cf.Distribution(this, 'Distribution', {
-      domainNames: [domainName, `www.${domainName}`],
-      certificate: certificate,
       defaultBehavior: {
         origin: new origins.S3Origin(siteBucket, {
-          originAccessIdentity: new cf.OriginAccessIdentity(this, 'OriginAccessIdentity', {
-            comment: 'OAI for Where Am I S3 bucket',
-          }),
+          originAccessIdentity: originAccessIdentity,
         }),
         viewerProtocolPolicy: cf.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cf.CachePolicy.CACHING_OPTIMIZED,
-        originRequestPolicy: cf.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
       },
       additionalBehaviors: {
         'api/*': {
@@ -149,40 +121,10 @@ export class WhereAmIStack extends Stack {
       ],
     })
 
-    // Route53 records
-    new route53.ARecord(this, 'SiteAliasRecord', {
-      zone: hostedZone,
-      target: route53.RecordTarget.fromAlias(
-        new route53targets.CloudFrontTarget(distribution)
-      ),
-    })
-
-    new route53.ARecord(this, 'SiteAliasRecordWWW', {
-      zone: hostedZone,
-      recordName: `www.${domainName}`,
-      target: route53.RecordTarget.fromAlias(
-        new route53targets.CloudFrontTarget(distribution)
-      ),
-    })
-
-    // API subdomain record - using CloudFront for now
-    new route53.ARecord(this, 'ApiAliasRecord', {
-      zone: hostedZone,
-      recordName: apiSubdomain.replace(`${domainName}.`, ''),
-      target: route53.RecordTarget.fromAlias(
-        new route53targets.CloudFrontTarget(distribution)
-      ),
-    })
-
     // Outputs
     new CfnOutput(this, 'CloudFrontURL', {
-      value: `https://${domainName}`,
-      description: 'Production URL with HTTPS',
-    })
-
-    new CfnOutput(this, 'ApiURL', {
-      value: `https://${apiSubdomain}`,
-      description: 'API URL with HTTPS',
+      value: `https://${distribution.distributionDomainName}`,
+      description: 'CloudFront Distribution URL',
     })
 
     new CfnOutput(this, 'SiteBucketName', {
@@ -203,16 +145,6 @@ export class WhereAmIStack extends Stack {
     new CfnOutput(this, 'DistributionId', {
       value: distribution.distributionId,
       description: 'CloudFront Distribution ID',
-    })
-
-    new CfnOutput(this, 'HostedZoneId', {
-      value: hostedZone.hostedZoneId,
-      description: 'Route53 Hosted Zone ID',
-    })
-
-    new CfnOutput(this, 'CertificateArn', {
-      value: certificate.certificateArn,
-      description: 'SSL Certificate ARN',
     })
   }
 }

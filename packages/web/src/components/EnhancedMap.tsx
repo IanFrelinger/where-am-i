@@ -38,7 +38,7 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
     }
     
     // Fallback to valid token
-    return 'pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY20zcW92ZnEyMHNqeTJtcTJ5c2Fza3hoNSJ9.12y7S2B9pkn4PzRPjvaGxw';
+    return 'pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA';
   };
 
   useEffect(() => {
@@ -58,19 +58,26 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
       return;
     }
 
-    const accessToken = getMapboxToken();
+    // Use test style if available, otherwise use default Mapbox style
+    const style = (window as any).__TEST_STYLE__ ?? 'mapbox://styles/mapbox/streets-v12';
     
-    if (!accessToken || accessToken === 'your-mapbox-access-token-here') {
-      setError('Mapbox access token not configured. Please set VITE_MAPBOX_ACCESS_TOKEN in your environment variables.');
-      return;
+    // Only check for access token if using a Mapbox style
+    if (typeof style === 'string' && style.startsWith('mapbox://')) {
+      const accessToken = getMapboxToken();
+      
+      if (!accessToken || accessToken === 'your-mapbox-access-token-here') {
+        setError('Mapbox access token not configured. Please set VITE_MAPBOX_ACCESS_TOKEN in your environment variables.');
+        return;
+      }
+      
+      mapboxgl.accessToken = accessToken;
     }
 
     try {
-      mapboxgl.accessToken = accessToken;
 
       const map = new mapboxgl.Map({
         container: containerRef.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
+        style: style,
         center: center,
         zoom: zoom,
         pitch: 45, // Add some pitch for 3D effect
@@ -111,6 +118,11 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
         if (onMapLoad) {
           onMapLoad(map);
         }
+
+        // Emit map ready signal for tests
+        document.body.setAttribute('data-map-ready', 'true');
+        (window as any).__MAP_READY__ = true;
+        console.log('🗺️ Map ready signal emitted: __MAP_READY__ = true');
       });
 
       // Add a simple error handler for the map
@@ -392,7 +404,7 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
 
   return (
     <div className="enhanced-map-container">
-      <div ref={containerRef} className="enhanced-map" />
+      <div ref={containerRef} className="enhanced-map" data-testid="map" />
       
       {/* Tooltip */}
       {tooltip.visible && (
