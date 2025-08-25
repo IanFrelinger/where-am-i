@@ -19,6 +19,9 @@ RUN pnpm install --frozen-lockfile
 # Build stage for web
 FROM base AS web-builder
 COPY packages/web/ ./packages/web/
+# Set Mapbox access token for build time
+ARG VITE_MAPBOX_ACCESS_TOKEN
+ENV VITE_MAPBOX_ACCESS_TOKEN=$VITE_MAPBOX_ACCESS_TOKEN
 RUN pnpm --filter @where-am-i/web build
 
 # Build stage for API

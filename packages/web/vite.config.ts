@@ -15,5 +15,19 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['mapbox-gl'],
+  },
+  resolve: {
+    alias: {
+      'mapbox-gl': 'mapbox-gl',
+    },
   },
 })

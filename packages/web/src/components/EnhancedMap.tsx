@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import './EnhancedMap.css';
+
+// Use global Mapbox GL JS from CDN
+declare global {
+  interface Window {
+    mapboxgl: any;
+    MAPBOX_ACCESS_TOKEN: string;
+  }
+}
 
 interface EnhancedMapProps {
   center: [number, number];
   zoom: number;
   showBuildings?: boolean;
   showTerrain?: boolean;
-  onMapLoad?: (map: mapboxgl.Map) => void;
+  onMapLoad?: (map: any) => void;
 }
 
 export const EnhancedMap: React.FC<EnhancedMapProps> = ({
@@ -18,9 +26,8 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
   onMapLoad
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const mapRef = useRef<any>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-
   const [error, setError] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<{ visible: boolean; content: string; x: number; y: number }>({
     visible: false,
@@ -29,16 +36,19 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
     y: 0
   });
 
-  // Get Mapbox access token from environment or use fallback
+  // Get Mapbox access token from global window variable
   const getMapboxToken = () => {
-    // Try to get from environment variable first
-    const envToken = (import.meta as any).env?.VITE_MAPBOX_ACCESS_TOKEN;
-    if (envToken && envToken !== 'your-mapbox-access-token-here') {
-      return envToken;
+    // Check for global token first (set in HTML)
+    const globalToken = window.MAPBOX_ACCESS_TOKEN;
+    if (globalToken) {
+      console.log('Using global token:', globalToken);
+      return globalToken;
     }
     
     // Fallback to valid token
-    return 'pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA';
+    const fallbackToken = 'pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA';
+    console.log('Using fallback token:', fallbackToken);
+    return fallbackToken;
   };
 
   useEffect(() => {
@@ -47,114 +57,119 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
       return;
     }
 
-    // Check if Mapbox is available
-    if (!mapboxgl) {
-      setError('Mapbox library not available');
-      return;
-    }
-
-    if (!mapboxgl.Map) {
-      setError('Mapbox library not available');
-      return;
-    }
-
-    // Use test style if available, otherwise use default Mapbox style
-    const style = (window as any).__TEST_STYLE__ ?? 'mapbox://styles/mapbox/streets-v12';
-    
-    // Only check for access token if using a Mapbox style
-    if (typeof style === 'string' && style.startsWith('mapbox://')) {
-      const accessToken = getMapboxToken();
-      
-      if (!accessToken || accessToken === 'your-mapbox-access-token-here') {
-        setError('Mapbox access token not configured. Please set VITE_MAPBOX_ACCESS_TOKEN in your environment variables.');
-        return;
-      }
-      
-      mapboxgl.accessToken = accessToken;
-    }
-
-    try {
-
-      const map = new mapboxgl.Map({
-        container: containerRef.current,
-        style: style,
-        center: center,
-        zoom: zoom,
-        pitch: 45, // Add some pitch for 3D effect
-        bearing: 0
-      });
-
-      mapRef.current = map;
-
-      // Add comprehensive error handling for map loading
-      map.on('error', (e) => {
-        console.error('Map error event:', e);
-        setError(`Map error event: ${e.error?.message || 'Unknown error'}`);
-      });
-
-      map.on('load', () => {
-        console.log('Map loaded successfully!');
-        setMapLoaded(true);
-        setError(null);
+    // Wait for Mapbox GL JS to be available from CDN
+    const waitForMapbox = () => {
+      if (window.mapboxgl && window.mapboxgl.Map) {
+        console.log('Mapbox GL JS available from CDN:', !!window.mapboxgl);
+        console.log('Mapbox GL JS Map constructor:', !!window.mapboxgl.Map);
         
-        // Now that the map is fully loaded, add all the features
-        try {
-          // Add 3D terrain first
-          if (showTerrain) {
-            add3DTerrain(map);
-          }
-          
-          // Add 3D buildings
-          if (showBuildings) {
-            add3DBuildings(map);
-          }
-          
-          console.log('All map features added successfully');
-        } catch (featureError) {
-          console.error('Error adding map features:', featureError);
+        // Set the access token
+        const accessToken = getMapboxToken();
+        console.log('Setting Mapbox access token:', accessToken);
+        
+        if (!accessToken || accessToken === 'your-mapbox-access-token-here') {
+          setError('Mapbox access token not configured.');
+          return;
         }
+        
+        window.mapboxgl.accessToken = accessToken;
+        
+        // Now create the map
+        createMap();
+      } else {
+        console.log('Waiting for Mapbox GL JS to load...');
+        setTimeout(waitForMapbox, 100);
+      }
+    };
 
-        // Call the onMapLoad callback if provided
-        if (onMapLoad) {
-          onMapLoad(map);
-        }
+    const createMap = () => {
+      try {
+        console.log('Creating Mapbox map...');
+        const map = new window.mapboxgl.Map({
+          container: containerRef.current,
+          style: 'mapbox://styles/mapbox/streets-v12',
+          center: center,
+          zoom: zoom,
+          pitch: 45, // Add some pitch for 3D effect
+          bearing: 0
+        });
 
-        // Emit map ready signal for tests
-        document.body.setAttribute('data-map-ready', 'true');
-        (window as any).__MAP_READY__ = true;
-        console.log('🗺️ Map ready signal emitted: __MAP_READY__ = true');
-      });
+        mapRef.current = map;
+        console.log('Mapbox map created successfully');
 
-      // Add a simple error handler for the map
-      map.on('error', (e) => {
-        console.error('Map error event (duplicate):', e);
-        setError(`Map error event: ${e.error?.message || 'Unknown error'}`);
-      });
+        // Add comprehensive error handling for map loading
+        map.on('error', (e: any) => {
+          console.error('Map error event:', e);
+          setError(`Map error event: ${e.error?.message || 'Unknown error'}`);
+        });
 
-      // Add a simple render handler to see if the map is actually rendering
-      map.on('render', () => {
-        console.log('Map render event fired');
-      });
+        map.on('load', () => {
+          console.log('Map loaded successfully!');
+          setMapLoaded(true);
+          setError(null);
+          
+          // Now that the map is fully loaded, add all the features
+          try {
+            // Add 3D terrain first
+            if (showTerrain) {
+              add3DTerrain(map);
+            }
+            
+            // Add 3D buildings
+            if (showBuildings) {
+              add3DBuildings(map);
+            }
+            
+            console.log('All map features added successfully');
+          } catch (featureError) {
+            console.error('Error adding map features:', featureError);
+          }
 
-      // Add a simple idle handler to see if the map finishes loading
-      map.on('idle', () => {
-        console.log('Map idle event fired - map is ready');
-      });
+          // Call the onMapLoad callback if provided
+          if (onMapLoad) {
+            onMapLoad(map);
+          }
 
-      // Add a simple style load handler
-      map.on('style.load', () => {
-        console.log('Map style loaded');
-      });
+          // Emit map ready signal for tests
+          document.body.setAttribute('data-map-ready', 'true');
+          (window as any).__MAP_READY__ = true;
+          console.log('🗺️ Map ready signal emitted: __MAP_READY__ = true');
+        });
 
-      // Add a simple data load handler
-      map.on('data', (e) => {
-        console.log('Map data event:', e.type);
-      });
+        // Add a simple error handler for the map
+        map.on('error', (e: any) => {
+          console.error('Map error event (duplicate):', e);
+          setError(`Map error event: ${e.error?.message || 'Unknown error'}`);
+        });
 
-    } catch (error) {
-      console.error('Error creating map:', error);
-      setError(`Failed to create map: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
+        // Add a simple render handler to see if the map is actually rendering
+        map.on('render', () => {
+          console.log('Map render event fired');
+        });
+
+        // Add a simple idle handler to see if the map finishes loading
+        map.on('idle', () => {
+          console.log('Map idle event fired - map is ready');
+        });
+
+        // Add a simple style load handler
+        map.on('style.load', () => {
+          console.log('Map style loaded');
+        });
+
+        // Add a simple data load handler
+        map.on('data', (e: any) => {
+          console.log('Map data event:', e.type);
+        });
+
+      } catch (error) {
+        console.error('Error creating map:', error);
+        setError(`Failed to create map: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    };
+
+    // Start waiting for Mapbox to load
+    waitForMapbox();
 
     return () => {
       console.log('Cleanup - removing map');
@@ -184,7 +199,7 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
 
   }, [showBuildings, showTerrain, mapLoaded]);
 
-  const add3DTerrain = (map: mapboxgl.Map) => {
+  const add3DTerrain = (map: any) => {
     try {
       console.log('Adding 3D terrain...');
       
@@ -229,7 +244,7 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
     }
   };
 
-  const add3DBuildings = (map: mapboxgl.Map) => {
+  const add3DBuildings = (map: any) => {
     try {
       console.log('Adding 3D buildings with terrain...');
       
@@ -286,7 +301,7 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
       console.log('3D buildings layer added successfully with terrain');
 
       // Add hover effect
-      map.on('mouseenter', '3d-buildings', (e) => {
+      map.on('mouseenter', '3d-buildings', (e: any) => {
         map.getCanvas().style.cursor = 'pointer';
         
         // Show building tooltip
@@ -307,12 +322,12 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
       });
 
       // Add click interaction for building details
-      map.on('click', '3d-buildings', (e) => {
+      map.on('click', '3d-buildings', (e: any) => {
         if (e.features && e.features[0] && e.features[0].properties) {
           const properties = e.features[0].properties;
           
           // Create popup with building information
-          new mapboxgl.Popup()
+          new window.mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(`
               <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; padding: 16px; min-width: 280px;">
@@ -321,7 +336,6 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
                     width: 16px; 
                     height: 16px; 
                     border-radius: 50%; 
-                    background-color: #007AFF;
                     border: 2px solid #FFFFFF;
                     box-shadow: 0 0 8px rgba(0,0,0,0.3);
                   "></div>
@@ -336,29 +350,29 @@ export const EnhancedMap: React.FC<EnhancedMapProps> = ({
                     background-color: #007AFF;
                     color: #FFFFFF;
                     border-radius: 16px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                  ">
-                    ${properties.building || 'Commercial'} Building
-                  </span>
-                </div>
-                <div style="margin-bottom: 8px;">
-                  <p style="margin: 0 0 8px 0; font-size: 14px; color: #333;">
-                    <strong>Height:</strong> ${properties.height || 'Unknown'}m
-                  </p>
-                  <p style="margin: 0 0 8px 0; font-size: 14px; color: #333;">
-                    <strong>Base Height:</strong> ${properties.min_height || 'Ground'}m
-                  </p>
-                  <p style="margin: 0 0 8px 0; font-size: 14px; color: #333;">
-                    <strong>Type:</strong> ${properties.building || 'Commercial'}
-                  </p>
-                  <p style="margin: 0; font-size: 12px; color: #8E8E93;">
-                    <strong>Address:</strong> ${properties.address || 'Location available'}
-                  </p>
-                </div>
-              </div>
-            `)
+          font-size: 14px;
+          font-weight: 600;
+          text-transform: uppercase;
+        ">
+          ${properties.building || 'Commercial'} Building
+        </span>
+      </div>
+      <div style="margin-bottom: 8px;">
+        <p style="margin: 0 0 8px 0; font-size: 14px; color: #333;">
+          <strong>Height:</strong> ${properties.height || 'Unknown'}m
+        </p>
+        <p style="margin: 0 0 8px 0; font-size: 14px; color: #333;">
+          <strong>Base Height:</strong> ${properties.min_height || 'Ground'}m
+        </p>
+        <p style="margin: 0 0 8px 0; font-size: 14px; color: #333;">
+          <strong>Type:</strong> ${properties.building || 'Commercial'}
+        </p>
+        <p style="margin: 0; font-size: 12px; color: #8E8E93;">
+          <strong>Address:</strong> ${properties.address || 'Location available'}
+        </p>
+      </div>
+    </div>
+  `)
             .addTo(map);
         }
       });

@@ -1,21 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { reverseGeocode } from './api'
 import { EnhancedMap } from './components/EnhancedMap'
-import mapboxgl from 'mapbox-gl'
 import './App.css'
-
-// Helper function to generate a circle polygon
-function generateCircle(center: [number, number], radiusKm: number, points: number): [number, number][] {
-  const coordinates: [number, number][] = [];
-  for (let i = 0; i < points; i++) {
-    const angle = (i / points) * 2 * Math.PI;
-    const lat = center[1] + (radiusKm / 111.32) * Math.cos(angle);
-    const lng = center[0] + (radiusKm / (111.32 * Math.cos(center[1] * Math.PI / 180))) * Math.sin(angle);
-    coordinates.push([lng, lat]);
-  }
-  coordinates.push(coordinates[0]); // Close the polygon
-  return coordinates;
-}
 
 interface LocationData {
   lat: number
@@ -153,10 +139,10 @@ function App() {
             mapRef.current = map;
             
             // Add a marker for the user's location
-            new mapboxgl.Marker({ color: '#007AFF' })
+            new window.mapboxgl.Marker({ color: '#007AFF' })
               .setLngLat([location.lng, location.lat])
               .setPopup(
-                new mapboxgl.Popup()
+                new window.mapboxgl.Popup()
                   .setHTML(`
                     <div class="popup-content">
                       <h3>📍 Your Location</h3>
@@ -217,6 +203,19 @@ function App() {
       </div>
     </div>
   )
+}
+
+// Helper function to generate a circle polygon
+function generateCircle(center: [number, number], radiusKm: number, points: number): [number, number][] {
+  const coordinates: [number, number][] = [];
+  for (let i = 0; i < points; i++) {
+    const angle = (i / points) * 2 * Math.PI;
+    const lat = center[1] + (radiusKm / 111.32) * Math.cos(angle);
+    const lng = center[0] + (radiusKm / (111.32 * Math.cos(center[1] * Math.PI / 180))) * Math.sin(angle);
+    coordinates.push([lng, lat]);
+  }
+  coordinates.push(coordinates[0]); // Close the polygon
+  return coordinates;
 }
 
 export default App

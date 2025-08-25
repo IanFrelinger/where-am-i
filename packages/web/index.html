@@ -7,8 +7,8 @@
     <title>Where Am I? 🌍</title>
     <meta name="description" content="A geolocation web application with Node.js + TypeScript backend on AWS" />
     
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Mapbox CSS -->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" />
     
     <style>
       body {
@@ -26,6 +26,23 @@
         width: 100vw;
       }
     </style>
+    
+    <!-- Set Mapbox access token globally and load Mapbox GL JS -->
+    <script>
+      window.MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA';
+      
+      // Load Mapbox GL JS from CDN
+      const script = document.createElement('script');
+      script.src = 'https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js';
+      script.onload = function() {
+        // Set the access token once the library is loaded
+        if (window.mapboxgl) {
+          window.mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN;
+          console.log('Mapbox GL JS loaded and token set');
+        }
+      };
+      document.head.appendChild(script);
+    </script>
   </head>
   <body>
     <div id="root"></div>

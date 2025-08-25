@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        VITE_MAPBOX_ACCESS_TOKEN: pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA
     container_name: where-am-i-app
     ports:
       - "5173:5173"  # Frontend
@@ -12,6 +14,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=8787
+      - VITE_MAPBOX_ACCESS_TOKEN=pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA
     volumes:
       # Optional: Mount source code for development
       # - ./packages:/app/packages:ro
@@ -31,6 +34,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      args:
+        VITE_MAPBOX_ACCESS_TOKEN: pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA
     container_name: where-am-i-dev
     ports:
       - "3000:5173"  # Frontend dev
@@ -38,6 +43,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=8787
+      - VITE_MAPBOX_ACCESS_TOKEN=pk.eyJ1IjoiaWNmcmVsaW5nZXIiLCJhIjoiY21lbXRqYXI5MHdjdjJpcHRnYXpmOHZlbyJ9.89NobWdR1h0QuukKth0RBA
     volumes:
       - ./packages:/app/packages
       - ./package.json:/app/package.json
